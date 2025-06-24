@@ -9,6 +9,8 @@ import { MatDialog } from '@angular/material/dialog';
 import CrearClienteComponent from './mantenimiento/crear-cliente/crear-cliente.component';
 import { state, style, animate, transition, trigger } from '@angular/animations';
 import { ModificarClienteComponent } from './mantenimiento/modificar-cliente/modificar-cliente.component';
+//import { CustomerService } from '../../core/api/customerService';
+
 
 @Component({
   selector: 'app-profile',
@@ -42,10 +44,21 @@ export default class ProfileComponent implements OnInit {
   clientes: Cliente[] = [];
   modalVisible = false;
 
-  constructor(private facturaService: FacturaService, private dialog: MatDialog) {}
+  constructor(private facturaService: FacturaService,
+    //private customerService: CustomerService,
+    private dialog: MatDialog
+
+  ) {}
 
   ngOnInit(): void {
+   /* this.customerService.getAll().subscribe({
+      next: (data) => console.log("KAMALY" + data),
+      
+      //next: (data) => this.clientes = data,
+      error: (err) => console.error('Error al obtener clientes', err)
+    }); */
     this.obtenerListadoClientes();
+
   }
 
   openAdd() {

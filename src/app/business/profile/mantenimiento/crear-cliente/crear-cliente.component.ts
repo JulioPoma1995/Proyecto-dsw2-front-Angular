@@ -7,6 +7,7 @@ import { Cliente } from '../../../../models/cliente.interface';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { Component, EventEmitter, Output, Inject, inject, OnInit } from '@angular/core';
+//import { CustomerService } from '../../../../core/api/customerService';
 
 @Component({
   selector: 'app-crear-cliente',
@@ -35,6 +36,7 @@ export default class CrearClienteComponent implements OnInit {
     public dialogRef: MatDialogRef<CrearClienteComponent>,
     @Inject(MAT_DIALOG_DATA) public data: any,
     private facturaService: FacturaService
+    //private customerService: CustomerService
   ) {}
 
   ngOnInit(): void {
