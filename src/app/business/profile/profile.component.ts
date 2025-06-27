@@ -2,13 +2,15 @@ import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { HttpClientModule } from '@angular/common/http';
 import { FacturaService } from '../../services/factura.service';
-import { Cliente } from '../../models/cliente.interface';
+import { Cliente, Client } from '../../models/cliente.interface';
 import { ButtonModule } from 'primeng/button';
 import { TableModule } from 'primeng/table';
 import { MatDialog } from '@angular/material/dialog';
 import CrearClienteComponent from './mantenimiento/crear-cliente/crear-cliente.component';
 import { state, style, animate, transition, trigger } from '@angular/animations';
 import { ModificarClienteComponent } from './mantenimiento/modificar-cliente/modificar-cliente.component';
+import { CustomerService } from '../../core/api/customerService';
+
 
 @Component({
   selector: 'app-profile',
@@ -22,7 +24,7 @@ import { ModificarClienteComponent } from './mantenimiento/modificar-cliente/mod
     ButtonModule,
     TableModule,
   ],
-  providers: [FacturaService],
+  providers: [CustomerService],
   animations: [
     trigger('overlayContentAnimation', [
       state('start', style({ opacity: 0 })),
@@ -42,7 +44,11 @@ export default class ProfileComponent implements OnInit {
   clientes: Cliente[] = [];
   modalVisible = false;
 
-  constructor(private facturaService: FacturaService, private dialog: MatDialog) {}
+  constructor(
+    private customerService: CustomerService,
+    private dialog: MatDialog
+
+  ) { }
 
   ngOnInit(): void {
     this.obtenerListadoClientes();
@@ -58,15 +64,33 @@ export default class ProfileComponent implements OnInit {
       });
   }
 
+
+  transformarClientACliente(api: Client): Cliente {
+    return {
+      id_cliente: api.id,
+      nombre: api.name,
+      apellido: api.lastname,
+      documentoIdentidad: api.dni,
+      direccion: api.address,
+      telefono: api.numberPhone,
+      email: api.email,
+      FechaRegistro: new Date(),
+      estado: true
+    };
+  }
+
+
   obtenerListadoClientes(): void {
     this.cargando = true;
     this.mensajeError = '';
-    this.facturaService.getListadoClientes().subscribe(
+    this.customerService.getAll().subscribe(
       (data) => {
-        this.clientes = data.map((cliente: { estado: number }) => ({
-          ...cliente,
-          estado: cliente.estado === 1,
-        }));
+        this.clientes = data.map(this.transformarClientACliente);
+        console.log("this.clientes")
+        console.log(this.clientes)
+         this.clientes.map((item) => {console.log(item.estado);
+         });
+
         this.totalPages = Math.ceil(this.clientes.length / this.pageSize);
         this.updatePaginatedCliente();
         this.overlayState = 'end';
@@ -100,7 +124,7 @@ export default class ProfileComponent implements OnInit {
 
   eliminarCliente(id_cliente: number): void {
     if (confirm('¿Estás seguro de eliminar este cliente?')) {
-      this.facturaService.eliminarCliente(id_cliente).subscribe(
+      this.customerService.delete(id_cliente).subscribe(
         (response) => {
           this.obtenerListadoClientes();
         },

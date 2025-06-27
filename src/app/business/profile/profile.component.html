@@ -139,8 +139,9 @@
                 <td class="whitespace-nowrap px-4 py-2 text-white text-sm">
                   <span
                     [ngClass]="item.estado? 'text-green-600 font-semibold' : 'text-red-600 font-semibold'">
-                    {{ item.estado ? 'Activo' : 'Inactivo' }}
+                     {{ item.estado === true || item.estado === 'true' ? 'Activo' : 'Inactivo' }}
                   </span>
+                  <p>Estado raw: {{ item.estado }}</p>
                 </td>
                </tr>
             </ng-template>

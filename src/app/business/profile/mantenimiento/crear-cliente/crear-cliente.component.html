@@ -6,49 +6,49 @@
       <!-- Nombre -->
       <div>
         <label for="Nombre" class="block text-sm font-medium text-gray-700">Nombre</label>
-        <input id="Nombre" formControlName="Nombre" required
+        <input id="name" formControlName="name" required
           class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500" />
       </div>
 
       <!-- Apellido -->
       <div>
         <label for="Apellido" class="block text-sm font-medium text-gray-700">Apellido</label>
-        <input id="Apellido" formControlName="Apellido" required
+        <input id="lastname" formControlName="lastname" required
           class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500" />
       </div>
 
       <!-- Documento de Identidad -->
       <div>
         <label for="DocumentoIdentidad" class="block text-sm font-medium text-gray-700">Documento de Identidad</label>
-        <input id="DocumentoIdentidad" formControlName="DocumentoIdentidad" required
+        <input id="dni" formControlName="dni" required
           class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500" />
       </div>
 
       <!-- Dirección -->
       <div>
         <label for="Direccion" class="block text-sm font-medium text-gray-700">Dirección</label>
-        <input id="Direccion" formControlName="Direccion" required
+        <input id="address" formControlName="address" required
           class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500" />
       </div>
 
       <!-- Teléfono -->
       <div>
         <label for="Telefono" class="block text-sm font-medium text-gray-700">Teléfono</label>
-        <input id="Telefono" formControlName="Telefono" required
+        <input id="numberPhone" formControlName="numberPhone" required
           class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500" />
       </div>
 
       <!-- Email -->
       <div>
         <label for="Email" class="block text-sm font-medium text-gray-700">Email</label>
-        <input id="Email" formControlName="Email" type="email" required
+        <input id="email" formControlName="email" type="email" required
           class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500" />
       </div>
 
       <!-- Fecha de Registro -->
       <div>
         <label for="FechaRegistro" class="block text-sm font-medium text-gray-700">Fecha de Registro</label>
-        <input id="FechaRegistro" formControlName="FechaRegistro" type="date" required
+        <input id="originDate" formControlName="originDate" type="date" required
           class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500" />
       </div>
 
@@ -64,7 +64,8 @@
 
       <!-- Botones -->
       <div class="flex justify-end gap-4 mt-4">
-        <button type="submit" matRipple [disabled]="registerForm.invalid || cargando"
+        <!--<button type="submit" matRipple [disabled]="registerForm.invalid || cargando"-->
+        <button type="submit" matRipple [disabled]="cargando"
           class="middle none center rounded-lg bg-indigo-500 py-2 px-4 font-sans text-xs font-bold uppercase text-white shadow-md shadow-indigo-500/20 transition-all hover:shadow-lg hover:shadow-indigo-500/40 focus:opacity-[0.85] focus:shadow-none active:opacity-[0.85] active:shadow-none disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none">
           Guardar
         </button>
