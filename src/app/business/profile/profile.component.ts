@@ -74,7 +74,7 @@ export default class ProfileComponent implements OnInit {
       direccion: api.address,
       telefono: api.numberPhone,
       email: api.email,
-      FechaRegistro: new Date,
+      FechaRegistro: new Date(),
       estado: true
     };
   }
@@ -86,6 +86,11 @@ export default class ProfileComponent implements OnInit {
     this.customerService.getAll().subscribe(
       (data) => {
         this.clientes = data.map(this.transformarClientACliente);
+        console.log("this.clientes")
+        console.log(this.clientes)
+         this.clientes.map((item) => {console.log(item.estado);
+         });
+
         this.totalPages = Math.ceil(this.clientes.length / this.pageSize);
         this.updatePaginatedCliente();
         this.overlayState = 'end';
@@ -119,14 +124,14 @@ export default class ProfileComponent implements OnInit {
 
   eliminarCliente(id_cliente: number): void {
     if (confirm('¿Estás seguro de eliminar este cliente?')) {
-      /*this.facturaService.eliminarCliente(id_cliente).subscribe(
+      this.customerService.delete(id_cliente).subscribe(
         (response) => {
           this.obtenerListadoClientes();
         },
         (error) => {
           console.error('Error al eliminar el cliente', error);
         }
-      );*/
+      );
     }
   }
 
