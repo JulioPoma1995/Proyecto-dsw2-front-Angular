@@ -27,7 +27,7 @@ export class CustomerService {
     return this.http.put<any>(`${this.baseUrl}/${id}`, data);
   }
 
-  delete(id: string): Observable<any> {
+  delete(id: number): Observable<any> {
     return this.http.delete<any>(`${this.baseUrl}/${id}`);
   }
 }
