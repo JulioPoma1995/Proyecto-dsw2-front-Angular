@@ -63,6 +63,8 @@ export default class ProfileComponent implements OnInit {
     this.mensajeError = '';
     this.facturaService.getListadoProductos().subscribe(
       (data) => {
+        console.log("Se obtuvieron los productos")
+        console.log(data)
         this.productos = data.map((Product: any) => ({
           ...Product
         }));

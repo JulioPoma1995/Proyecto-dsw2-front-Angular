@@ -14,37 +14,47 @@
 
          <div>
           <label for="descripcion" class="block text-sm font-medium text-gray-700">Descripcion</label>
-          <input id="descripcion" formControlName="descripcion" name="descripcion" required class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500" />
+          <input id="description" formControlName="description" name="descripcion" required class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500" />
         </div>
 
          <div>
           <label for="precio" class="block text-sm font-medium text-gray-700">Precio </label>
-          <input id="precio" formControlName="precio" name="precio" required class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500" />
+          <input id="price" formControlName="price" name="precio" required class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500" />
         </div>
 
         <!-- Dirección -->
         <div>
           <label for="stock" class="block text-sm font-medium text-gray-700">Stock</label>
-          <input id="stock"formControlName="stock" name="stock" required class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500" />
+          <input id="totalQuantity"formControlName="totalQuantity" name="stock" required class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500" />
+        </div>
+        <div>
+          <label for="category" class="block text-sm font-medium text-gray-700">Categoría</label>
+          <select id="category" formControlName="category" name="category" class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500">
+            <option value="Tecnologia" selected>Tecnología</option>
+            <option value="Ropa">Ropa</option>
+            <option value="Hogar">Hogar</option>
+            <option value="Deportes">Deportes</option>
+            <option value="Otros">Otros</option>
+          </select>
         </div>
 
-        <!-- Teléfono -->
-        <div>
+        <!-- Fecha de Registro -->
+        <!-- <div>
           <label for="fecharegistro" class="block text-sm font-medium text-gray-700">Fecha de Registro</label>
           <input id="fecharegistro" formControlName="fecharegistro" name="fecharegistro" type="date" required class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500" />
-        </div>
+        </div> -->
 
         <!-- Estado -->
-        <div>
+        <!-- <div>
           <label for="estado" class="block text-sm font-medium text-gray-700">Estado</label>
           <select id="estado" formControlName="estado" name="estado" class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500">
             <option value="true">Activo</option>
             <option value="false">Inactivo</option>
           </select>
-        </div>
+        </div> -->
 
         <div class="flex justify-end gap-4 mt-4">
-          <button type="submit" matRipple [disabled]="registerForm.invalid || cargando"
+          <button type="submit" matRipple [disabled]="cargando"
             class="middle none center rounded-lg bg-indigo-500 py-2 px-4 font-sans text-xs font-bold uppercase text-white shadow-md shadow-indigo-500/20 transition-all hover:shadow-lg hover:shadow-indigo-500/40 focus:opacity-[0.85] focus:shadow-none active:opacity-[0.85] active:shadow-none disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none">
             Guardar
           </button>

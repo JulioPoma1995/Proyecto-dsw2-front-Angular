@@ -9,7 +9,7 @@ import {Producto, Product} from '../models/producto.interface';
 })
 export class FacturaService {
 
-  private apiUrl = 'http://localhost:8082/api';
+  private apiUrl = 'https://panel-production-ad61.up.railway.app/api';
 
   constructor(private http: HttpClient) {
   }

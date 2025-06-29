@@ -9,7 +9,7 @@ export interface Producto {
   }
 
 export interface Product {
-id_producto: number;
+id: number;
 name: string;
 description: string;
 totalQuantity: number;

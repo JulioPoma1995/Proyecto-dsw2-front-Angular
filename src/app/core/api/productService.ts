@@ -7,7 +7,7 @@ import { Observable } from 'rxjs';
 })
 
 export class CustomerService {
-  private baseUrl = 'http://localhost:8082/api/products'; // ajusta tu URL real
+  private baseUrl = 'https://panel-production-ad61.up.railway.app/api/products'; // ajusta tu URL real
 
   constructor(private http: HttpClient) {}
 

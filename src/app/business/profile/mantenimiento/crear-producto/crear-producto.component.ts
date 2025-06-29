@@ -2,7 +2,7 @@ import { CommonModule } from '@angular/common';
 import { HttpClientModule } from '@angular/common/http';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { FacturaService } from '../../../../services/factura.service';
-import { Producto } from '../../../../models/producto.interface';
+import { Product } from '../../../../models/producto.interface';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
@@ -42,12 +42,11 @@ export default class CrearProductoComponent implements OnInit{
 
   private inicializarFormulario(): void {
     this.registerForm = new FormGroup({
-      nombre: new FormControl('', [Validators.required, Validators.maxLength(255)]),
-      descripcion: new FormControl('', [Validators.required, Validators.maxLength(255)]),
-      precio: new FormControl(null, [Validators.required, Validators.pattern(/^\d+(\.\d+)?$/)]),
-      stock: new FormControl(null, [Validators.required,Validators.pattern(/^\d+(\.\d+)?$/)]),
-      fecharegistro: new FormControl(null, [Validators.required]),
-      estado: new FormControl(null, [Validators.required])
+      name: new FormControl('', [Validators.required, Validators.maxLength(255)]),
+      description: new FormControl('', [Validators.required, Validators.maxLength(255)]),
+      price: new FormControl(null, [Validators.required, Validators.pattern(/^\d+(\.\d+)?$/)]),
+      totalQuantity: new FormControl(null, [Validators.required,Validators.pattern(/^\d+(\.\d+)?$/)]),
+      category: new FormControl(null, [Validators.required])
     });
   }
 
@@ -59,12 +58,21 @@ export default class CrearProductoComponent implements OnInit{
   }
 
   createProducto() {
-    if (this.registerForm.valid) {
-      const producto = this.registerForm.value;
-      producto.estado = producto.estado ? 1 : 0;
-      producto.fecharegistro = new Date(producto.fecharegistro).toISOString();
+   // if (this.registerForm.valid) {
+      const Product = this.registerForm.value;
+      console.log("Producto a crear")
+      console.log(Product)
+      Product.category = Product.category.toLowerCase();
+      Product.price = parseFloat(Product.price);
+      Product.totalQuantity = parseInt(Product.totalQuantity);
+      Product.availableQuantity = parseInt(Product.totalQuantity);
+      Product.description = Product.description.toLowerCase();
+      Product.name = Product.name.toLowerCase();
 
-      this.facturaService.crearProducto(producto).subscribe(
+      console.log("Producto a crear modificado")
+      console.log(Product)
+
+      this.facturaService.crearProducto(Product).subscribe(
         (data) => {
           console.log('Producto creado con éxito:', data);
           this.showAlert();
@@ -76,7 +84,7 @@ export default class CrearProductoComponent implements OnInit{
           console.log('Errores de validación:', error.error.errors);
         }
       );
-    }
+   // }
   }
 
   resetForm() {
