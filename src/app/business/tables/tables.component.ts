@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { HttpClientModule } from '@angular/common/http';
 import { FacturaService } from '../../services/factura.service';
-import { Producto } from '../../models/producto.interface';
+import { Producto, Product } from '../../models/producto.interface';
 import CrearProductoComponent from '../profile/mantenimiento/crear-producto/crear-producto.component';
 import { ButtonModule } from 'primeng/button';
 import { TableModule } from 'primeng/table';
@@ -63,9 +63,8 @@ export default class ProfileComponent implements OnInit {
     this.mensajeError = '';
     this.facturaService.getListadoProductos().subscribe(
       (data) => {
-        this.productos = data.map((producto: { estado: number; }) => ({
-          ...producto,
-          estado: producto.estado === 1  // Convierte el estado a booleano
+        this.productos = data.map((Product: any) => ({
+          ...Product
         }));
         this.overlayState = 'end';
         this.updatePaginatedProducto();
@@ -74,14 +73,14 @@ export default class ProfileComponent implements OnInit {
       },
       (error) => {
         console.error('Hubo un error al obtener los Productos', error);
-        this.mensajeError = 'Error al cargar clientes';
+        this.mensajeError = 'Error al cargar Productos';
         this.cargando = false;
       }
     );
   }
 
-  openEdit(producto: any): void {
-    const dialogRef = this.dialog.open(ModificarProductoComponent, { data: producto });
+  openEdit(Product: any): void {
+    const dialogRef = this.dialog.open(ModificarProductoComponent, { data: Product });
     dialogRef.afterClosed().subscribe((result) => {
       if (result) {
         this.obtenerListadoProductos();
@@ -89,8 +88,8 @@ export default class ProfileComponent implements OnInit {
     });
   }
 
-  openView(producto: any): void {
-    const dialogRef = this.dialog.open(ModificarProductoComponent, { data: { producto, isViewMode: true } });
+  openView(Product: any): void {
+    const dialogRef = this.dialog.open(ModificarProductoComponent, { data: { Product, isViewMode: true } });
     dialogRef.afterClosed().subscribe((result) => {
       if (result) {
         this.obtenerListadoProductos();

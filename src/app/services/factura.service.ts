@@ -1,7 +1,7 @@
 import {Injectable} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 import {catchError, Observable, throwError} from 'rxjs';
-import {Producto} from '../models/producto.interface';
+import {Producto, Product} from '../models/producto.interface';
 
 
 @Injectable({
@@ -9,17 +9,17 @@ import {Producto} from '../models/producto.interface';
 })
 export class FacturaService {
 
-  private apiUrl = 'https://localhost:44363/api';
+  private apiUrl = 'http://localhost:8082/api';
 
   constructor(private http: HttpClient) {
   }
 
   getClientes(): Observable<any> {
-    return this.http.get(`${this.apiUrl}/Cliente/SearchClientes`);
+    return this.http.get(`${this.apiUrl}/customers`);
   }
 
-  crearCliente(cliente: any): Observable<any> {
-    return this.http.post(`${this.apiUrl}/Cliente/CrearCliente`, cliente, {responseType: 'text' as 'json'});
+  crearCliente(client: any): Observable<any> {
+    return this.http.post(`${this.apiUrl}/customers`, client, {responseType: 'text' as 'json'});
   }
 
   eliminarCliente(id_cliente: number): Observable<any> {
@@ -44,20 +44,20 @@ export class FacturaService {
     return this.http.get(`${this.apiUrl}/FacDetalle/GetOneFacDetalle/${id}`);
   }
 
-  crearProducto(producto: any): Observable<any> {
-    return this.http.post(`${this.apiUrl}/Producto/CrearProducto`, producto, {responseType: 'text' as 'json'});
+  crearProducto(product: any): Observable<any> {
+    return this.http.post(`${this.apiUrl}/products`, product, {responseType: 'text' as 'json'});
   }
 
   getListadoProductos(): Observable<any> {
-    return this.http.get(`${this.apiUrl}/Producto/SearchProducto`);
+    return this.http.get(`${this.apiUrl}/products`);
   }
 
-  actualizarProducto(id: number, producto: any): Observable<any> {
-    return this.http.put(`${this.apiUrl}/Producto/Update/${id}`, producto, {responseType: 'text' as 'json'});
+  actualizarProducto(id: number, product: any): Observable<any> {
+    return this.http.put(`${this.apiUrl}/products/${id}`, product, {responseType: 'text' as 'json'});
   }
 
   eliminarProducto(id_producto: number): Observable<any> {
-    return this.http.delete(`${this.apiUrl}/Producto/EliminarProducto/${id_producto}`, {responseType: 'text'})
+    return this.http.delete(`${this.apiUrl}/products/${id_producto}`, {responseType: 'text'})
       .pipe(
         catchError((error) => {
           console.error('Error al eliminar producto', error);

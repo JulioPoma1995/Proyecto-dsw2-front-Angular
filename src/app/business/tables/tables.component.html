@@ -51,30 +51,30 @@
                   Id Producto
                   <p-sortIcon field="id_producto"></p-sortIcon>
                 </th>
-                <th pSortableColumn="nombre"
+                <th pSortableColumn="name"
                     class="p-2 text-sm font-semibold tracking-wide text-center bg-gray-300 min-w-[200px] text-black !important">
                   Nombre Producto
-                  <p-sortIcon field="nombre"></p-sortIcon>
+                  <p-sortIcon field="name"></p-sortIcon>
                 </th>
-                <th pSortableColumn="descripcion"
+                <th pSortableColumn="description"
                     class="p-2 text-sm font-semibold tracking-wide text-center bg-gray-100 min-w-[200px] text-black!important">
-                  Descripción<p-sortIcon field="descripcion"></p-sortIcon></th>
+                  Descripción<p-sortIcon field="description"></p-sortIcon></th>
 
-                <th pSortableColumn="precio"
+                <th pSortableColumn="totalQuantity"
                     class="p-2 text-sm font-semibold tracking-wide text-center bg-gray-100 min-w-[200px] text-black !important">
-                  Precio<p-sortIcon field="precio"></p-sortIcon></th>
+                  Cantidad Total<p-sortIcon field="totalQuantity"></p-sortIcon></th>
 
-                <th pSortableColumn="stock"
+                <th pSortableColumn="availableQuantity"
                     class="p-2 text-sm font-semibold tracking-wide text-center bg-white-500 min-w-[200px] text-black !important">
-                  Stock<p-sortIcon field="stock"></p-sortIcon></th>
+                  Cantidad disponible<p-sortIcon field="availableQuantity"></p-sortIcon></th>
 
-                <th pSortableColumn="fecharegistro"
+                <th pSortableColumn="category"
                     class="p-2 text-sm font-semibold tracking-wide text-center bg-gray-100 min-w-[200px] text-black !important">
-                  Fecha Registro<p-sortIcon field="fecharegistro"></p-sortIcon></th>
+                  Categoría<p-sortIcon field="category"></p-sortIcon></th>
 
-                <th pSortableColumn="estado"
+                <th pSortableColumn="price"
                     class="p-2 text-sm font-semibold tracking-wide text-center bg-gray-500 min-w-[200px] text-black !important">
-                  Estado <p-sortIcon field="estado"></p-sortIcon></th>
+                  Precio <p-sortIcon field="price"></p-sortIcon></th>
 
               </tr>
             </ng-template>
@@ -83,18 +83,14 @@
             <ng-template pTemplate="body" let-item>
               <tr class="hover:bg-gray-500 text-xs">
 
+                <td class="whitespace-nowrap px-4 py-2 text-white text-sm">{{ item.id_producto }}</td>
+                <td class="whitespace-nowrap px-4 py-2 text-white text-sm">{{ item.name }}</td>
+                <td class="whitespace-nowrap px-4 py-2 text-white text-sm">{{ item.description }}</td>
+                <td class="whitespace-nowrap px-4 py-2 text-white text-sm">{{ item.totalQuantity }}</td>
+                <td class="whitespace-nowrap px-4 py-2 text-white text-sm">{{ item.availableQuantity }}</td>
+                <td class="whitespace-nowrap px-4 py-2 text-white text-sm">{{ item.category}}</td>
+                <td class="whitespace-nowrap px-4 py-2 text-white text-sm">{{ item.price}}</td>
 
-                <td class="whitespace-nowrap px-4 py-2 text-white text-sm">{{ item.nombre }}</td>
-                <td class="whitespace-nowrap px-4 py-2 text-white text-sm">{{ item.descripcion }}</td>
-                <td class="whitespace-nowrap px-4 py-2 text-white text-sm">{{ item.precio }}</td>
-                <td class="whitespace-nowrap px-4 py-2 text-white text-sm">{{ item.stock }}</td>
-                <td class="whitespace-nowrap px-4 py-2 text-white text-sm">{{ item.fecharegistro | date:'yyyy-MM-dd'}}</td>
-                <td class="whitespace-nowrap px-4 py-2 text-white text-sm">
-                  <span
-                    [ngClass]="item.estado? 'text-green-600 font-semibold' : 'text-red-600 font-semibold'">
-                    {{ item.estado ? 'Activo' : 'Inactivo' }}
-                  </span>
-                </td>
               </tr>
             </ng-template>
 
@@ -175,17 +171,12 @@
                 </td>
 
                 <td class="whitespace-nowrap px-4 py-2 text-white text-sm">{{ item.id_producto }}</td>
-                <td class="whitespace-nowrap px-4 py-2 text-white text-sm">{{ item.nombre }}</td>
-                <td class="whitespace-nowrap px-4 py-2 text-white text-sm">{{ item.descripcion }}</td>
-                <td class="whitespace-nowrap px-4 py-2 text-white text-sm">{{ item.precio }}</td>
-                <td class="whitespace-nowrap px-4 py-2 text-white text-sm">{{ item.stock }}</td>
-                <td class="whitespace-nowrap px-4 py-2 text-white text-sm">{{ item.fecharegistro | date:'yyyy-MM-dd'}}</td>
-                <td class="whitespace-nowrap px-4 py-2 text-white text-sm">
-                  <span
-                    [ngClass]="item.estado? 'text-green-600 font-semibold' : 'text-red-600 font-semibold'">
-                    {{ item.estado ? 'Activo' : 'Inactivo' }}
-                  </span>
-                </td>
+                <td class="whitespace-nowrap px-4 py-2 text-white text-sm">{{ item.name }}</td>
+                <td class="whitespace-nowrap px-4 py-2 text-white text-sm">{{ item.description }}</td>
+                <td class="whitespace-nowrap px-4 py-2 text-white text-sm">{{ item.totalQuantity }}</td>
+                <td class="whitespace-nowrap px-4 py-2 text-white text-sm">{{ item.availableQuantity }}</td>
+                <td class="whitespace-nowrap px-4 py-2 text-white text-sm">{{ item.category }}</td>
+                <td class="whitespace-nowrap px-4 py-2 text-white text-sm">{{ item.price }}</td>
               </tr>
             </ng-template>
 

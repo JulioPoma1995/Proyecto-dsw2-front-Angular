@@ -7,3 +7,13 @@ export interface Producto {
     fecharegistro: Date;
     estado: number; // Cambiado a number para que coincida con el backend
   }
+
+export interface Product {
+id_producto: number;
+name: string;
+description: string;
+totalQuantity: number;
+availableQuantity: number;
+category: string;
+price: number;
+}
