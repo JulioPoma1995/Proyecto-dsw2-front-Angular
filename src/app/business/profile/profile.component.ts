@@ -86,9 +86,12 @@ export default class ProfileComponent implements OnInit {
     this.customerService.getAll().subscribe(
       (data) => {
         this.clientes = data.map(this.transformarClientACliente);
-        console.log("Se obtuvieron los clientes")
+<<<<<<< HEAD
+=======
+        console.log("this.clientes")
         console.log(this.clientes)
-        this.clientes.map((item) => {console.log(item.estado);
+         this.clientes.map((item) => {console.log(item.estado);
+>>>>>>> 0f676724733c609b97c468f953edac8fdb3fee48
          });
 
         this.totalPages = Math.ceil(this.clientes.length / this.pageSize);
