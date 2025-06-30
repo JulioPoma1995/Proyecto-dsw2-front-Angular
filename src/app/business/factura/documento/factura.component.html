@@ -24,46 +24,48 @@
       </mat-form-field>
     </div>
 
-    <!-- Clientes disponibles -->
-    <div class="available-clients" *ngIf="!clienteSeleccionado">
-      <div *ngIf="cargandoClientes" class="loading-state">
-        <mat-icon class="loading-icon">hourglass_empty</mat-icon>
-        <p>Cargando clientes...</p>
-      </div>
-      
-      <div *ngIf="!cargandoClientes && clientesFiltrados.length > 0" class="clients-info">
-        <div class="clients-summary">
-          <mat-icon>people</mat-icon>
-          <span>{{ clientesFiltrados.length }} clientes disponibles</span>
+    <div class="client-grid">
+      <!-- Clientes disponibles -->
+      <div class="available-clients" *ngIf="!clienteSeleccionado">
+        <div *ngIf="cargandoClientes" class="loading-state">
+          <mat-icon class="loading-icon">hourglass_empty</mat-icon>
+          <p>Cargando clientes...</p>
         </div>
-        <div class="clients-tip">
-          <mat-icon>info</mat-icon>
-          <span>Selecciona un cliente del combobox para continuar</span>
-        </div>
-      </div>
-      
-      <div *ngIf="!cargandoClientes && clientesFiltrados.length === 0" class="no-results">
-        <mat-icon>person_off</mat-icon>
-        <p>No hay clientes disponibles</p>
-      </div>
-    </div>
-
-    <!-- Cliente seleccionado -->
-    <div class="selected-client" *ngIf="clienteSeleccionado">
-      <div *ngIf="clienteSeleccionado" class="selected-item">
-        <div class="item-details">
-          <div class="item-name">{{ clienteSeleccionado.name }} {{ clienteSeleccionado.lastname }}</div>
-          <div class="client-info">
-            <div><strong>DNI:</strong> {{ clienteSeleccionado.dni }}</div>
-            <div><strong>Dirección:</strong> {{ clienteSeleccionado.address }}</div>
-            <div><strong>Teléfono:</strong> {{ clienteSeleccionado.numberPhone }}</div>
-            <div><strong>Email:</strong> {{ clienteSeleccionado.email }}</div>
+        
+        <div *ngIf="!cargandoClientes && clientesFiltrados.length > 0" class="clients-info">
+          <div class="clients-summary">
+            <mat-icon>people</mat-icon>
+            <span>{{ clientesFiltrados.length }} clientes disponibles</span>
+          </div>
+          <div class="clients-tip">
+            <mat-icon>info</mat-icon>
+            <span>Selecciona un cliente del combobox para continuar</span>
           </div>
         </div>
-        <div class="item-total">
-          <button mat-icon-button (click)="clienteSeleccionado = null" class="remove-btn">
-            <mat-icon>close</mat-icon>
-          </button>
+        
+        <div *ngIf="!cargandoClientes && clientesFiltrados.length === 0" class="no-results">
+          <mat-icon>person_off</mat-icon>
+          <p>No hay clientes disponibles</p>
+        </div>
+      </div>
+
+      <!-- Cliente seleccionado -->
+      <div class="selected-client" *ngIf="clienteSeleccionado">
+        <div *ngIf="clienteSeleccionado" class="selected-item">
+          <div class="item-details">
+            <div class="item-name">{{ clienteSeleccionado.name }} {{ clienteSeleccionado.lastname }}</div>
+            <div class="client-info">
+              <div><strong>DNI:</strong> {{ clienteSeleccionado.dni }}</div>
+              <div><strong>Dirección:</strong> {{ clienteSeleccionado.address }}</div>
+              <div><strong>Teléfono:</strong> {{ clienteSeleccionado.numberPhone }}</div>
+              <div><strong>Email:</strong> {{ clienteSeleccionado.email }}</div>
+            </div>
+          </div>
+          <div class="item-total">
+            <button mat-icon-button (click)="clienteSeleccionado = null" class="remove-btn">
+              <mat-icon>close</mat-icon>
+            </button>
+          </div>
         </div>
       </div>
     </div>
@@ -157,10 +159,10 @@
       <span>Subtotal:</span>
       <span>{{ calcularSubtotal() | currency:'S/.' }}</span>
     </div>
-    <div class="summary-row">
+    <!--<div class="summary-row">
       <span>IGV (18%):</span>
       <span>{{ calcularIgv() | currency:'S/.' }}</span>
-    </div>
+    </div>-->
     <div class="summary-row total">
       <span>Total:</span>
       <span>{{ calcularTotal() | currency:'S/.' }}</span>

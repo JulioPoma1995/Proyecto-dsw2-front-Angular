@@ -131,6 +131,82 @@ $shadow-medium: rgba(0, 0, 0, 0.15);
   }
 }
 
+.client-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+  flex-wrap: wrap;
+  gap: 16px;
+
+  .search-field {
+    min-width: 400px;
+    flex: 1;
+  }
+}
+
+.available-clients {
+  max-height: 350px;
+  overflow-y: auto;
+  padding-right: 8px;
+}
+
+.clients-info {
+  padding: 20px;
+  background: linear-gradient(135deg, $background-light, $background-white);
+  border-radius: 12px;
+  border: 1px solid $border-color;
+  margin-bottom: 16px;
+
+  .clients-summary {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 16px;
+    padding: 12px;
+    background: $primary-color;
+    color: $background-white;
+    border-radius: 8px;
+    font-weight: 600;
+
+    mat-icon {
+      font-size: 1.5rem;
+    }
+  }
+
+  .clients-tip {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 12px;
+    background: rgba($warning-color, 0.1);
+    border: 1px solid rgba($warning-color, 0.3);
+    border-radius: 8px;
+    color: $warning-color;
+    font-size: 0.9rem;
+
+    mat-icon {
+      font-size: 1.2rem;
+    }
+  }
+}
+
+.selected-client {
+  max-height: 350px;
+  overflow-y: auto;
+  padding-right: 8px;
+}
+
+.client-info {
+  font-size: 0.9rem;
+  color: $text-secondary;
+  line-height: 1.5;
+
+  div {
+    margin-bottom: 4px;
+  }
+}
+
 .selected-client {
   .client-header {
     display: flex;
@@ -182,6 +258,12 @@ $shadow-medium: rgba(0, 0, 0, 0.15);
 }
 
 .products-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
+}
+
+.client-grid {
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: 20px;
@@ -484,20 +566,26 @@ $shadow-medium: rgba(0, 0, 0, 0.15);
 // Scrollbar personalizado
 .client-list::-webkit-scrollbar,
 .available-products::-webkit-scrollbar,
-.selected-products::-webkit-scrollbar {
+.selected-products::-webkit-scrollbar,
+.available-clients::-webkit-scrollbar,
+.selected-client::-webkit-scrollbar {
   width: 6px;
 }
 
 .client-list::-webkit-scrollbar-track,
 .available-products::-webkit-scrollbar-track,
-.selected-products::-webkit-scrollbar-track {
+.selected-products::-webkit-scrollbar-track,
+.available-clients::-webkit-scrollbar-track,
+.selected-client::-webkit-scrollbar-track {
   background: $background-light;
   border-radius: 3px;
 }
 
 .client-list::-webkit-scrollbar-thumb,
 .available-products::-webkit-scrollbar-thumb,
-.selected-products::-webkit-scrollbar-thumb {
+.selected-products::-webkit-scrollbar-thumb,
+.available-clients::-webkit-scrollbar-thumb,
+.selected-client::-webkit-scrollbar-thumb {
   background: $primary-light;
   border-radius: 3px;
   
