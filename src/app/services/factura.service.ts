@@ -71,7 +71,7 @@ export class FacturaService {
   }
 
   getListadoFacturas(): Observable<any> {
-    return this.http.get(`${this.apiUrl}/Factura/GetFacturas`);
+    return this.http.get(`${this.apiUrl}/invoices`);
   }
 
 }

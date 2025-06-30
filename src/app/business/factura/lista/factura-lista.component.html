@@ -12,29 +12,43 @@
         <th>Nro</th>
         <th>Cliente</th>
         <th>Fecha</th>
-        <th>Subtotal</th>
-        <th>IGV</th>
+        <th>Productos</th>
         <th>Total</th>
-        <th>Estado</th>
+        <th>Acciones</th>
       </tr>
       </thead>
       <tbody>
       <tr *ngFor="let factura of facturas; let i = index">
-        <td>{{ i + 1 }}</td>
+        <td>{{ factura.id }}</td>
         <td>
           <div class="client-info">
-            <span class="client-name">{{ factura?.clienteNombre }}</span>
-            <span class="client-doc">RUC/DNI: {{ factura?.clienteDocumento }}</span>
+            <span class="client-name">{{ factura.customerName }}</span>
+            <span class="client-id">ID: {{ factura.customerId }}</span>
           </div>
         </td>
-        <td>{{ factura?.fecha?.toString()?.padStart(10) }}</td>
-        <td>S/. {{ factura?.subtotal?.toFixed(2) }}</td>
-        <td>S/. {{ factura?.igv?.toFixed(2) }}</td>
-        <td>S/. {{ factura?.total?.toFixed(2) }}</td>
+        <td>{{ factura.invoiceDate | date:'dd/MM/yyyy' }}</td>
         <td>
-          <span [class]="'status-badge ' + (factura?.activo ? 'active' : 'inactive')">
-            {{ factura?.activo ? 'Activo' : 'Anulado' }}
-          </span>
+          <div class="products-info">
+            <div *ngFor="let detail of factura.details" class="product-item">
+              <span class="product-name">{{ detail.productName }}</span>
+              <span class="product-quantity">x{{ detail.quantity }}</span>
+              <span class="product-price">S/. {{ detail.price.toFixed(2) }}</span>
+            </div>
+          </div>
+        </td>
+        <td class="total-amount">S/. {{ factura.totalAmount.toFixed(2) }}</td>
+        <td>
+          <div class="actions">
+            <button class="action-btn view-btn" title="Ver detalles">
+              <i class="fas fa-eye"></i>
+            </button>
+            <button class="action-btn edit-btn" title="Editar">
+              <i class="fas fa-edit"></i>
+            </button>
+            <button class="action-btn delete-btn" title="Eliminar">
+              <i class="fas fa-trash"></i>
+            </button>
+          </div>
         </td>
       </tr>
       </tbody>

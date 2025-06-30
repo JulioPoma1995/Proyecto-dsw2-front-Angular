@@ -6,32 +6,65 @@
 <mat-dialog-content class="compact-content">
   <!-- Sección Cliente -->
   <section class="client-section">
-    <div *ngIf="!clienteSeleccionado">
-      <h3 class="section-title">Seleccionar Cliente</h3>
-      <mat-form-field appearance="outline" class="full-width">
-        <mat-label>Buscar cliente</mat-label>
-        <input matInput [(ngModel)]="clienteBusqueda" (input)="filtrarClientes()">
-        <mat-icon matSuffix>search</mat-icon>
+    <div class="client-header">
+      <h3 class="section-title">Cliente</h3>
+      <mat-form-field appearance="outline" class="search-field" *ngIf="!clienteSeleccionado">
+        <mat-label>Seleccionar cliente</mat-label>
+        <mat-select [(ngModel)]="clienteSeleccionado" 
+                   [compareWith]="compareClientes"
+                   placeholder="Buscar y seleccionar cliente...">
+          <mat-option *ngFor="let cliente of clientesFiltrados" [value]="cliente">
+            {{ cliente.name }} {{ cliente.lastname }} - {{ cliente.dni }}
+          </mat-option>
+          <mat-option *ngIf="clientesFiltrados.length === 0 && !cargandoClientes" [disabled]="true">
+            No hay clientes disponibles
+          </mat-option>
+        </mat-select>
+        <mat-icon matSuffix>person</mat-icon>
       </mat-form-field>
-      <div class="client-list">
-        <div *ngFor="let cliente of clientesFiltrados" class="client-item"
-             (click)="seleccionarCliente(cliente)">
-          <div class="client-name">{{ cliente.nombre }}</div>
-          <div class="client-doc">{{ cliente.documento }}</div>
+    </div>
+
+    <!-- Clientes disponibles -->
+    <div class="available-clients" *ngIf="!clienteSeleccionado">
+      <div *ngIf="cargandoClientes" class="loading-state">
+        <mat-icon class="loading-icon">hourglass_empty</mat-icon>
+        <p>Cargando clientes...</p>
+      </div>
+      
+      <div *ngIf="!cargandoClientes && clientesFiltrados.length > 0" class="clients-info">
+        <div class="clients-summary">
+          <mat-icon>people</mat-icon>
+          <span>{{ clientesFiltrados.length }} clientes disponibles</span>
         </div>
+        <div class="clients-tip">
+          <mat-icon>info</mat-icon>
+          <span>Selecciona un cliente del combobox para continuar</span>
+        </div>
+      </div>
+      
+      <div *ngIf="!cargandoClientes && clientesFiltrados.length === 0" class="no-results">
+        <mat-icon>person_off</mat-icon>
+        <p>No hay clientes disponibles</p>
       </div>
     </div>
 
-    <div *ngIf="clienteSeleccionado" class="selected-client">
-      <div class="client-header">
-        <h3 class="client-title">{{ clienteSeleccionado.nombre }}</h3>
-        <button mat-icon-button (click)="clienteSeleccionado = null">
-          <mat-icon>close</mat-icon>
-        </button>
-      </div>
-      <div class="client-details">
-        <div><strong>RUC/DNI:</strong> {{ clienteSeleccionado.documento }}</div>
-        <div><strong>Dirección:</strong> {{ clienteSeleccionado.direccion }}</div>
+    <!-- Cliente seleccionado -->
+    <div class="selected-client" *ngIf="clienteSeleccionado">
+      <div *ngIf="clienteSeleccionado" class="selected-item">
+        <div class="item-details">
+          <div class="item-name">{{ clienteSeleccionado.name }} {{ clienteSeleccionado.lastname }}</div>
+          <div class="client-info">
+            <div><strong>DNI:</strong> {{ clienteSeleccionado.dni }}</div>
+            <div><strong>Dirección:</strong> {{ clienteSeleccionado.address }}</div>
+            <div><strong>Teléfono:</strong> {{ clienteSeleccionado.numberPhone }}</div>
+            <div><strong>Email:</strong> {{ clienteSeleccionado.email }}</div>
+          </div>
+        </div>
+        <div class="item-total">
+          <button mat-icon-button (click)="clienteSeleccionado = null" class="remove-btn">
+            <mat-icon>close</mat-icon>
+          </button>
+        </div>
       </div>
     </div>
   </section>
@@ -41,48 +74,75 @@
     <div class="products-header">
       <h3 class="section-title">Productos ({{ productosSeleccionados.length }})</h3>
       <mat-form-field appearance="outline" class="search-field">
-        <mat-label>Buscar productos</mat-label>
-        <input matInput [(ngModel)]="productoBusqueda" (input)="filtrarProductos()">
-        <mat-icon matSuffix>search</mat-icon>
+        <mat-label>Seleccionar producto</mat-label>
+        <mat-select [(ngModel)]="productoSeleccionado" 
+                   (selectionChange)="onProductoSeleccionado()" 
+                   [compareWith]="compareProductos"
+                   placeholder="Buscar y seleccionar producto...">
+          <mat-option *ngFor="let producto of productosFiltrados" [value]="producto">
+            {{ producto.name || 'Sin nombre' }} - S/. {{ formatearPrecio(producto.price) }}
+          </mat-option>
+          <mat-option *ngIf="productosFiltrados.length === 0 && !cargandoProductos" [disabled]="true">
+            No hay productos disponibles
+          </mat-option>
+        </mat-select>
+        <mat-icon matSuffix>inventory</mat-icon>
       </mat-form-field>
     </div>
 
     <div class="products-grid">
       <!-- Productos disponibles -->
       <div class="available-products">
-        <div *ngFor="let producto of productosFiltrados" class="product-card"
-             (click)="agregarProducto(producto)">
-          <div class="product-info">
-            <div class="product-name">{{ producto.nombre }}</div>
-            <div class="product-desc">{{ producto.descripcion }}</div>
+        <div *ngIf="cargandoProductos" class="loading-state">
+          <mat-icon class="loading-icon">hourglass_empty</mat-icon>
+          <p>Cargando productos...</p>
+        </div>
+        
+        <div *ngIf="!cargandoProductos && productos.length > 0" class="products-info">
+          <div class="products-summary">
+            <mat-icon>inventory_2</mat-icon>
+            <span>{{ productos.length }} productos disponibles</span>
           </div>
-          <div class="product-price">{{ producto.precio | currency:'S/.' }}</div>
+          <div class="products-tip">
+            <mat-icon>info</mat-icon>
+            <span>Selecciona un producto del combobox para agregarlo</span>
+          </div>
+        </div>
+        
+        <div *ngIf="!cargandoProductos && productos.length === 0" class="no-results">
+          <mat-icon>inventory</mat-icon>
+          <p>No hay productos disponibles</p>
         </div>
       </div>
 
       <!-- Productos seleccionados -->
       <div class="selected-products">
         <div *ngIf="productosSeleccionados.length === 0" class="empty-state">
-          <mat-icon>info</mat-icon>
+          <mat-icon>shopping_cart</mat-icon>
           <p>No hay productos agregados</p>
         </div>
 
         <div *ngFor="let item of productosSeleccionados; let i = index" class="selected-item">
           <div class="item-details">
-            <div class="item-name">{{ item.producto.nombre }}</div>
+            <div class="item-name">{{ item.producto.name }}</div>
             <div class="item-quantity">
-              <button mat-icon-button (click)="ajustarCantidad(i, -1)">
+              <button mat-icon-button (click)="ajustarCantidad(i, -1)" 
+                      [disabled]="item.cantidad <= 1" class="quantity-btn">
                 <mat-icon>remove</mat-icon>
               </button>
-              <span>{{ item.cantidad }}</span>
-              <button mat-icon-button (click)="ajustarCantidad(i, 1)">
+              <span class="quantity-display">{{ item.cantidad }}</span>
+              <button mat-icon-button (click)="ajustarCantidad(i, 1)"
+                      [disabled]="item.cantidad >= item.producto.totalQuantity" class="quantity-btn">
                 <mat-icon>add</mat-icon>
               </button>
             </div>
           </div>
           <div class="item-total">
-            {{ item.cantidad * item.producto.precio | currency:'S/.' }}
-            <button mat-icon-button (click)="removerProducto(i)">
+            <div class="price-info">
+              <div class="unit-price">{{ item.producto.price | currency:'S/.' }} c/u</div>
+              <div class="total-price">{{ item.cantidad * item.producto.price | currency:'S/.' }}</div>
+            </div>
+            <button mat-icon-button (click)="removerProducto(i)" class="remove-btn">
               <mat-icon>delete</mat-icon>
             </button>
           </div>
@@ -109,9 +169,9 @@
 </mat-dialog-content>
 
 <mat-dialog-actions align="end" class="compact-actions">
-  <button mat-stroked-button mat-dialog-close>Cancelar</button>
+  <button mat-stroked-button mat-dialog-close class="cancel-btn">Cancelar</button>
   <button mat-raised-button color="primary" (click)="generarFactura()"
-          [disabled]="!clienteSeleccionado || productosSeleccionados.length === 0">
+          [disabled]="!clienteSeleccionado || productosSeleccionados.length === 0" class="generate-btn">
     <mat-icon>check_circle</mat-icon>
     Generar Factura
   </button>
